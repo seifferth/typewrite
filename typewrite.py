@@ -75,8 +75,7 @@ def typewrite(text: str) -> bytes:
         objoffset = textoffset + len(streamhead) + len(_textstreamend) + \
                     textlength
         return pdf[:textoffset] + streamhead + text.encode('utf-8') + \
-               _textstreamend + \
-               pdf[objoffset:]
+               _textstreamend + pdf[objoffset:]
 
 _cli_help = """
 Usage: typewrite <INPUT.TXT> <OUTPUT.PDF>
