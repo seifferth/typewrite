@@ -50,12 +50,10 @@ _textstreamend = b"""
 % are mostly binary blobs used for displaying this file as pdf.
 """
 
-def typewrite(filename: str):
-    with open(filename) as f:
-        text = f.read()
-        textlength = len(text.encode('utf-8'))
-        streamhead = f'<< /Length {textlength+3} >>\nstream\n\n' \
-                                                    .encode('utf-8')
+def typewrite(text: str) -> bytes:
+    textlength = len(text.encode('utf-8'))
+    streamhead = f'<< /Length {textlength+3} >>\nstream\n\n' \
+                                                .encode('utf-8')
     with TemporaryDirectory() as outdir:
         with open(f'{outdir}/document.tex', 'w') as f:
             f.write(_textfilehead)
@@ -99,5 +97,6 @@ commands like 'pr --length=57' to prepare text for typewrite.
 if __name__ == "__main__":
     if '-h' in sys.argv or '--help' in sys.argv:
         print(_cli_help); exit(0)
-    with open(sys.argv[2], 'wb') as outfile:
-        outfile.write(typewrite(sys.argv[1]))
+    with open(sys.argv[1]) as infile:
+        with open(sys.argv[2], 'wb') as outfile:
+            outfile.write(typewrite(infile.read()))
