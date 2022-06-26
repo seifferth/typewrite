@@ -6,7 +6,7 @@ from tempfile import TemporaryDirectory
 _texhead = r"""
 \documentclass[a4paper]{minimal}
 \usepackage[
-    lmargin=2.3cm,rmargin=2.3cm,
+    lmargin=2.3cm,rmargin=0.3cm,
     tmargin=2.7cm,bmargin=2.7cm,
 ]{geometry}
 %!TEX program=lualatex
